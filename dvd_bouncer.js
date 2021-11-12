@@ -53,13 +53,19 @@ var s = function (p) {
     }    
   }
 
-  var CANVAS_SIZE_X = 400;
-  var CANVAS_SIZE_Y = 400;
+  var SCALE_SIZE = 3
+  var CANVAS_SIZE_X = 1600 / SCALE_SIZE;
+  var CANVAS_SIZE_Y = 900 / SCALE_SIZE;
+
+  function Generate_Random_Number(low, high)
+  {
+    return Math.floor((Math.random() * ((high+1) - low)) + low);
+  }
 
   p.setup = function() {
     p.createCanvas(CANVAS_SIZE_X, CANVAS_SIZE_Y);
     // myRectangle = new Rectangle(100, 100, 100, 100);
-    AnimatedRect = new VelocityRectangle(100, 50, 50, 50, 1, 1);
+    AnimatedRect = new VelocityRectangle(Generate_Random_Number(0, CANVAS_SIZE_X), Generate_Random_Number(0, CANVAS_SIZE_Y), Generate_Random_Number(10, 50), Generate_Random_Number(10, 50), Generate_Random_Number(1, 5), Generate_Random_Number(1, 5));
   };
 
   p.draw = function() {
