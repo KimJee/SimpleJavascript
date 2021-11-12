@@ -1,7 +1,7 @@
 var t = function (p) {
   class Animated_Object{
   
-    constructor(_x, _y, _radius, _velocity)
+    constructor(_x, _y, _radius, _velocity, _rotation_flag)
     {
       this.x = _x;
       this.y = _y;
@@ -9,6 +9,7 @@ var t = function (p) {
       this.centerY = _y;
       this.r = _radius
       this.velocity = _velocity;
+      this.rotation_flag = _rotation_flag
       this.deg = 0;
     }
     
@@ -30,24 +31,45 @@ var t = function (p) {
     
     increment()
     {
-      this.deg = (this.deg + 10) % 360;
-      console.log(this.deg);
+      if (this.rotation_flag == 1)
+      {
+        this.deg = (this.deg + 10) % 360;
+        // console.log(this.deg);
+      }
+      else
+      {
+        this.deg = (this.deg - 10) % 360;
+        // console.log(this.deg);
+      }
     }
   }
   
-  var MyCircle = new Animated_Object(200, 200, 10, 1);
-  var MyCircle_1 = new Animated_Object(210, 210, 10, 1);
-  
+  var Circle_Array = [];
+
+  function Generate_Random_Number(low, high)
+  {
+    return Math.floor((Math.random() * ((high+1) - low)) + low);
+  }
+
+  let CANVAS_SIZE_X = 400;
+  let CANVAS_SIZE_Y = 400;
+
   p.setup = function() {
     p.frameRate(30);
-    p.createCanvas(400, 400);
-    p.background(100);
+    p.createCanvas(CANVAS_SIZE_X, CANVAS_SIZE_Y);
+    p.background(100);  
+    var CIRCLE_ENTITIES = 100;
+    for (let i = 0; i < CIRCLE_ENTITIES; ++i)
+    {
+        Circle_Array[i] = new Animated_Object(Generate_Random_Number(0, CANVAS_SIZE_X), Generate_Random_Number(0, CANVAS_SIZE_Y), Generate_Random_Number(1, 10), Generate_Random_Number(1, 10), Generate_Random_Number(0, 1));
+    }
   };
   
   p.draw = function() {
     p.background(100);
-    MyCircle.tick();
-    MyCircle_1.tick();
+    Circle_Array.forEach(element => {
+      element.tick();
+    });
   };
 }
 

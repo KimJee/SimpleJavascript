@@ -58,7 +58,7 @@ var s = function (p) {
 
   p.setup = function() {
     p.createCanvas(CANVAS_SIZE_X, CANVAS_SIZE_Y);
-    myRectangle = new Rectangle(100, 100, 100, 100);
+    // myRectangle = new Rectangle(100, 100, 100, 100);
     AnimatedRect = new VelocityRectangle(100, 50, 50, 50, 1, 1);
   };
 
